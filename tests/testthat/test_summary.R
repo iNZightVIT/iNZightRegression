@@ -9,6 +9,9 @@ test_that("Confidence limits included in summary output", {
         scan(text = gsub("%", "", o[cind+1]), what = character(), quiet = TRUE),
         c("Estimate", "Std.", "Error", "t", "value", "p-value", "2.5", "97.5")
     )
+
+    fit2 <- lm(Sepal.Length ~ 1, data = iris)
+    o <- expect_silent(capture.output(iNZightSummary(fit2)))
 })
 
 dat <- data.frame(x = runif(100, 0, 1), stringsAsFactors = TRUE)
