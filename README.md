@@ -42,6 +42,13 @@ Plots and summaries of model objects:
 
 ``` r
 library(iNZightRegression)
+#> *****************************************************************
+#> * Loaded iNZightRegression
+#> *
+#> * Methods imported from 'iNZightPlots':
+#> * - use `inzplot()` for diagnostic plots of model objects
+#> * - use `inzsummary()` for a summary of model objects
+#> *****************************************************************
 iris.lm <- lm(Sepal.Width ~ Sepal.Length, data = iris)
 inzplot(iris.lm, which = "residual")
 ```
