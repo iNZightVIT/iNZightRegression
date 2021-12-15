@@ -16,12 +16,13 @@ knitr::opts_chunk$set(
 # iNZightRegression
 
 <!-- badges: start -->
+
 ![R-CMD-check](https://github.com/iNZightVIT/iNZightRegression/workflows/R-CMD-check/badge.svg)
 [![Coverage status](https://codecov.io/gh/iNZightVIT/iNZightRegression/branch/master/graph/badge.svg)](https://codecov.io/github/iNZightVIT/iNZightRegression?branch=master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 [![CRAN](https://www.r-pkg.org/badges/version/iNZightRegression)](https://CRAN.R-project.org/package=iNZightRegression)
-<!-- badges: end -->
 
+<!-- badges: end -->
 
 An R package which provides summary information and plots which have been altered from those provided by base R.
 
@@ -31,14 +32,14 @@ It now handles `glm` object, as well as `svyglm` objects from the `survey` packa
 
 You can install the released version of iNZightRegression from [CRAN](https://CRAN.R-project.org) with:
 
-``` r
+```r
 # Not yet on CRAN - please use devtools below
 # install.packages("iNZightRegression")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
 
-``` r
+```r
 # install.packages("devtools")
 devtools::install_github("iNZightVIT/iNZightRegression")
 ```
@@ -53,4 +54,6 @@ iris.lm <- lm(Sepal.Width ~ Sepal.Length, data = iris)
 inzplot(iris.lm, which = "residual")
 inzplot(iris.lm, which = "scale")
 inzplot(iris.lm, which = "leverage")
+
+inzsummary(iris.lm)
 ```
