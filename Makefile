@@ -12,11 +12,12 @@ test:
 	@$(R) -e "devtools::test()"
 
 revcheck:
-	@$(R) -e "devtools::use_revdep()"
+	@$(R) -e "if (!requireNamespace('revdepcheck')) install.packages('revdepcheck')"
+	@$(R) -e "revdepcheck::revdep_check()"
 	@$(R) -f "revdep/check.R"
 
 revcheck_reset:
-	@$(RCMD) -e "revdepcheck::revdep_reset()"
+	@$(R) -e "revdepcheck::revdep_reset()"
 
 crancheck:
 	@$(R) CMD build .
@@ -25,8 +26,8 @@ crancheck:
 install:
 	$(R) CMD INSTALL ./
 
-README.md: README.Rmd
-	$(R) -e "devtools::load_all(); rmarkdown::render('$^')"
+README.md: README.Rmd | install
+	$(R) -e "rmarkdown::render('$^')"
 	rm README.html
 
 BRANCH := $(shell git branch --show-current | sed 's/[a-z]*\///')
