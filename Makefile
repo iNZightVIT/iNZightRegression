@@ -25,6 +25,10 @@ crancheck:
 install:
 	$(R) CMD INSTALL ./
 
+README.md: README.Rmd
+	$(R) -e "devtools::load_all(); rmarkdown::render('$^')"
+	rm README.html
+
 BRANCH := $(shell git branch --show-current | sed 's/[a-z]*\///')
 releasePRs:
 	@echo Creating PR to master
