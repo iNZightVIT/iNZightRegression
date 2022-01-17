@@ -15,6 +15,9 @@ revcheck:
 	@$(R) -e "devtools::use_revdep()"
 	@$(R) -f "revdep/check.R"
 
+revcheck_reset:
+	@$(RCMD) -e "revdepcheck::revdep_reset()"
+
 crancheck:
 	@$(R) CMD build .
 	@$(R) CMD check *.tar.gz
