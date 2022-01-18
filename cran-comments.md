@@ -15,3 +15,9 @@ I have fixed the CRAN package check notes from previous version
 ## Downstream dependencies
 
 There are currently no downstream dependencies for this package.
+
+## CRAN check results
+
+There are ERRORs for windows r-devel and r-oldrel:
+* one complaining about missing 'car' package (though it's there)
+* three failing running tests, but no information to ascertain what's going wrong
