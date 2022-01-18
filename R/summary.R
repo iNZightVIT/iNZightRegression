@@ -260,7 +260,7 @@ iNZightSummary <- function (x, method = "standard", reorder.factors = FALSE,
         }
         rowns <- rownames(coefs)
         varnames <- names(x.data)
-        coefs.copy <- cbind(coefs.copy, confint(x.lm))
+        coefs.copy <- cbind(coefs.copy, as.matrix(confint(x.lm), ncol = 2L))
 
         if (!is.null(exclude)) {
             excl <- apply(sapply(exclude,

@@ -9,6 +9,9 @@ test_that("Confidence limits included in summary output", {
         scan(text = gsub("%", "", o[cind+1]), what = character(), quiet = TRUE),
         c("Estimate", "Std.", "Error", "t", "value", "p-value", "2.5", "97.5")
     )
+
+    fit2 <- lm(Sepal.Length ~ 1, data = iris)
+    o <- expect_silent(capture.output(iNZightSummary(fit2)))
 })
 
 dat <- data.frame(x = runif(100, 0, 1), stringsAsFactors = TRUE)
@@ -93,4 +96,11 @@ test_that("Cox PH models are supported", {
     expect_match(smry.cox, "Coefficients:", all=FALSE)
     expect_match(smry.cox, "^sex", all = FALSE)
     # expect_match(smry.cox, "^Concordance", all = FALSE)
+})
+
+test_that("inzsummary works", {
+    expect_equal(
+        capture.output(iNZightSummary(fit)),
+        capture.output(inzsummary(fit))
+    )
 })
