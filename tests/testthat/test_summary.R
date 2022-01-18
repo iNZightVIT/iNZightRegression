@@ -97,3 +97,10 @@ test_that("Cox PH models are supported", {
     expect_match(smry.cox, "^sex", all = FALSE)
     # expect_match(smry.cox, "^Concordance", all = FALSE)
 })
+
+test_that("inzsummary works", {
+    expect_equal(
+        capture.output(iNZightSummary(fit)),
+        capture.output(inzsummary(fit))
+    )
+})

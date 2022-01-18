@@ -53,14 +53,14 @@ inzplot.lm <- function(x,
                        env = parent.frame()
                        ) {
 
-    if (which[1] == "marginal") {
+    if (which[1] == "marginal") { # nocov start
         terms <- x$terms
         vars <- attr(terms, "term.labels")
         vars <- vars[attr(terms, "dataClasses")[vars] == "numeric"]
         f <- as.formula(paste("~", paste(vars, collapse = " + ")))
         p <- car::marginalModelPlots(x, f, ...)
         return(invisible(p))
-    }
+    } # nocov end
 
     # instead, just loop over `which` and patchwork:: them together
     short.title <- length(which) > 1L
