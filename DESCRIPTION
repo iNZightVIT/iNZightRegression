@@ -16,6 +16,7 @@ Depends:
 Imports:
     car,
     dplyr,
+    GGally,
     ggplot2,
     ggrepel,
     ggtext,

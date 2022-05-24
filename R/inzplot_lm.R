@@ -8,6 +8,7 @@
 #' * Cook's distance
 #' * normal Q-Q
 #' * histogram array
+#' * forest plot
 #'
 #' @param x a regression model
 #' @param which the type of plot to draw
@@ -88,6 +89,10 @@ inzplot.lm <- function(x,
                     bs.fits = bs.fits,
                     env = env),
                 "hist" = .inzplot_lm_hist(x, show.bootstraps,
+                    short.title,
+                    ...,
+                    env = env),
+                "forest" = .inzplot_lm_forest(x, show.bootstraps,
                     short.title,
                     ...,
                     env = env)
@@ -487,6 +492,11 @@ inzplot.lm <- function(x,
             plot.subtitle = element_markdown(lineheight = 1.5)
         )
 }
+
+.inzplot_lm_forest <- function(x, short.title, ..., env = env) {
+    GGally::ggcoef_model(x)
+}
+
 
 dropInf <- function(x, h) {
     if (any(isInf <- h >= 1)) {
