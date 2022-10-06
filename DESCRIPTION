@@ -31,6 +31,7 @@ Imports:
     utils
 Suggests:
     covr,
+    broom.helpers,
     iNZightTools (>= 1.9),
     survey,
     survival,
