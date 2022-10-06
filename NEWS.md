@@ -1,3 +1,5 @@
+- add forest plot
+
 ## iNZightRegression 1.3.2
 
 - `show.bootstraps` defaults to `TRUE` only if fewer than 100,000 observations

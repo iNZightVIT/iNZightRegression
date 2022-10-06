@@ -1,7 +1,7 @@
 Package: iNZightRegression
 Type: Package
 Title: Tools for Exploring Regression Models with 'iNZight'
-Version: 1.3.2
+Version: 1.3.2.9000
 Authors@R: c(
     person("Tom", "Elliott",
         role = c("aut", "cre"),
@@ -16,6 +16,7 @@ Depends:
 Imports:
     car,
     dplyr,
+    GGally,
     ggplot2,
     ggrepel,
     ggtext,
@@ -30,6 +31,7 @@ Imports:
     utils
 Suggests:
     covr,
+    broom.helpers,
     iNZightTools (>= 1.9),
     survey,
     survival,
