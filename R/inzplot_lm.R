@@ -306,7 +306,7 @@ inzplot.lm <- function(x,
                         d_fun(bs.fits[[i]], which = which, is.bs = TRUE),
                         bs.index = i
                     )
-                    si <- loess(y ~ x, data = di)
+                    si <- suppressWarnings(loess(y ~ x, data = di))
                     o <- order(si$x)
                     data.frame(x = si$x[o], y = si$fitted[o], bs.index = i)
                 }
