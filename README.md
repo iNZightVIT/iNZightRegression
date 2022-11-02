@@ -1,4 +1,3 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # iNZightRegression
@@ -25,14 +24,14 @@ It now handles `glm` object, as well as `svyglm` objects from the
 You can install the released version of iNZightRegression from
 [CRAN](https://CRAN.R-project.org) with:
 
-``` r
+```r
 # Not yet on CRAN - please use devtools below
 # install.packages("iNZightRegression")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
 
-``` r
+```r
 # install.packages("devtools")
 devtools::install_github("iNZightVIT/iNZightRegression")
 ```
@@ -41,7 +40,7 @@ devtools::install_github("iNZightVIT/iNZightRegression")
 
 Plots and summaries of model objects:
 
-``` r
+```r
 library(iNZightRegression)
 #> *****************************************************************
 #> * Loaded iNZightRegression                                      *
@@ -58,31 +57,31 @@ inzplot(iris.lm, which = "residual")
 
 <img src="man/figures/README-example-1.png" width="50%" style="display: block; margin: auto;" />
 
-``` r
+```r
 inzplot(iris.lm, which = "scale")
 ```
 
 <img src="man/figures/README-example-2.png" width="50%" style="display: block; margin: auto;" />
 
-``` r
+```r
 inzplot(iris.lm, which = "leverage")
 ```
 
 <img src="man/figures/README-example-3.png" width="50%" style="display: block; margin: auto;" />
 
-``` r
+```r
 
 inzsummary(iris.lm)
-#> 
+#>
 #> Model for: Sepal.Width
-#> 
+#>
 #> Coefficients:
 #>                Estimate Std. Error    t value  p-value      2.5 %  97.5 %
 #> (Intercept)   3.419e+00  2.536e-01  1.348e+01 <2e-16   ***  2.918 3.92002
 #> Sepal.Length -6.188e-02  4.297e-02 -1.440e+00  0.152       -0.147 0.02302
 #> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
-#> 
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#>
 #> Residual standard error: 0.4343 on 148 degrees of freedom
 #> Multiple R-squared: 0.01382, Adjusted R-squared: 0.007159
 ```
