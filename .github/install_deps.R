@@ -1,13 +1,15 @@
 # R script
 github_deps <- c(
+    "gdemin/expss",
     "iNZightVIT/iNZightTools@1.9",
     "iNZightVIT/iNZightPlots@2.13",
-    "iNZightVIT/iNZightMR@2.2.5"     # dependency of iNZightPlots
+    "iNZightVIT/iNZightMR@2.2.5" # dependency of iNZightPlots
 )
 
 OS <- Sys.getenv("OS_TYPE")
-if (OS == "Windows" && !requireNamespace('utf8', quietly = TRUE))
+if (OS == "Windows" && !requireNamespace("utf8", quietly = TRUE)) {
     install.packages("utf8", repos = "https://cran.r-project.org")
+}
 
 options(
     repos = c(
@@ -20,7 +22,8 @@ options(
 remotes::install_github(github_deps,
     INSTALL_opts = c("--no-multiarch")
 )
-remotes::install_deps(dependencies = TRUE,
+remotes::install_deps(
+    dependencies = TRUE,
     INSTALL_opts = c("--no-multiarch")
 )
 remotes::install_cran("rcmdcheck",
