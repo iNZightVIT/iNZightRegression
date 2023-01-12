@@ -8,6 +8,7 @@
 #' * Cook's distance
 #' * normal Q-Q
 #' * histogram array
+#' * forest plot
 #'
 #' @param x a regression model
 #' @param which the type of plot to draw
@@ -41,7 +42,7 @@ inzplot.lm <- function(x,
                            "cooks",
                            "normal",
                            "hist"
-                        ),
+                       ),
                        show.bootstraps = nrow(x$model) < 1e5,
                        label.id = 3L,
                        col.smooth = "orangered",
@@ -50,9 +51,7 @@ inzplot.lm <- function(x,
                        col.cook = "pink",
                        ...,
                        bs.fits = NULL,
-                       env = parent.frame()
-                       ) {
-
+                       env = parent.frame()) {
     if (which[1] == "marginal") { # nocov start
         terms <- x$terms
         vars <- attr(terms, "term.labels")
@@ -64,9 +63,11 @@ inzplot.lm <- function(x,
 
     # instead, just loop over `which` and patchwork:: them together
     short.title <- length(which) > 1L
-    if (show.bootstraps && is.null(bs.fits))
+    if (show.bootstraps && is.null(bs.fits)) {
         bs.fits <- generate_bootstraps(x, env)
-    ps <- lapply(which,
+    }
+    ps <- lapply(
+        which,
         function(w) {
             switch(w,
                 "residual" = ,
@@ -81,16 +82,24 @@ inzplot.lm <- function(x,
                 "cooks" = .inzplot_lm_cooks(x, label.id,
                     short.title,
                     ...,
-                    env = env),
+                    env = env
+                ),
                 "normal" = .inzplot_lm_normqq(x, show.bootstraps, label.id,
                     short.title,
                     ...,
                     bs.fits = bs.fits,
-                    env = env),
+                    env = env
+                ),
                 "hist" = .inzplot_lm_hist(x, show.bootstraps,
                     short.title,
                     ...,
-                    env = env)
+                    env = env
+                ),
+                "forest" = .inzplot_lm_forest(x, show.bootstraps,
+                    short.title,
+                    ...,
+                    env = env
+                )
             )
         }
     )
@@ -115,8 +124,9 @@ inzplot.lm <- function(x,
 
     d_fun <- function(x, which, label.id = 0L, is.bs = FALSE) {
         # point labels
-        if (label.id > 0L)
+        if (label.id > 0L) {
             iid <- seq_len(label.id)
+        }
 
         labs <- character(nrow(x$model))
         switch(which,
@@ -162,8 +172,9 @@ inzplot.lm <- function(x,
     }
     d <- d_fun(x, which, label.id = label.id)
 
-    if (show.bootstraps && is.null(bs.fits))
+    if (show.bootstraps && is.null(bs.fits)) {
         bs.fits <- generate_bootstraps(x, env)
+    }
 
     title <- switch(which,
         "residual" = "Residuals vs Fitted Values",
@@ -173,7 +184,8 @@ inzplot.lm <- function(x,
     if (short.title) {
         subtitle <- waiver()
     } else {
-        subtitle <- sprintf("Linear model: %s",
+        subtitle <- sprintf(
+            "Linear model: %s",
             utils::capture.output(x$call$formula)
         )
         if (show.bootstraps) {
@@ -190,7 +202,8 @@ inzplot.lm <- function(x,
             )
         }
         if (which == "leverage" && !is.null(attr(d, "r.hat"))) {
-            title <- sprintf("%s, and <span style='color:%s'>Cook's contours</span>",
+            title <- sprintf(
+                "%s, and <span style='color:%s'>Cook's contours</span>",
                 title,
                 col.cook
             )
@@ -208,20 +221,26 @@ inzplot.lm <- function(x,
         px <- length(coef(x))
         r.hat <- attr(d, "r.hat")
         hh <- seq.int(min(r.hat[1L], r.hat[2L] / 100), XL[2],
-            length.out = 101)
+            length.out = 101
+        )
 
         yax2 <- numeric()
         for (crit in cook.levels) {
             cl.h <- sqrt(crit * px * (1 - hh) / hh)
-            yax2 <- c(yax2,
+            yax2 <- c(
+                yax2,
                 structure(cl.h[length(cl.h)] * c(1, -1), .Names = c(crit, crit))
             )
             dx <- data.frame(x = hh, y = cl.h)
             p <- p +
-                geom_path(lty = 2, col = col.cook,
-                    data = dx, na.rm = TRUE) +
-                geom_path(aes_(y = ~-y), lty = 2, col = col.cook,
-                    data = dx, na.rm = TRUE) +
+                geom_path(
+                    lty = 2, col = col.cook,
+                    data = dx, na.rm = TRUE
+                ) +
+                geom_path(aes_(y = ~ -y),
+                    lty = 2, col = col.cook,
+                    data = dx, na.rm = TRUE
+                ) +
                 geom_vline(xintercept = XL[2])
         }
         yax2 <- yax2[dplyr::between(yax2, YL[1], YL[2])]
@@ -258,7 +277,9 @@ inzplot.lm <- function(x,
                         breaks = yax2,
                         labels = names(yax2)
                     )
-                } else waiver()
+                } else {
+                    waiver()
+                }
         ) +
         ggtitle(title, subtitle = subtitle) +
         theme_classic() +
@@ -278,13 +299,14 @@ inzplot.lm <- function(x,
     if (show.bootstraps) {
         bs.data <- do.call(
             rbind,
-            lapply(seq_along(bs.fits),
+            lapply(
+                seq_along(bs.fits),
                 function(i) {
                     di <- cbind(
                         d_fun(bs.fits[[i]], which = which, is.bs = TRUE),
                         bs.index = i
                     )
-                    si <- loess(y ~ x, data = di)
+                    si <- suppressWarnings(loess(y ~ x, data = di))
                     o <- order(si$x)
                     data.frame(x = si$x[o], y = si$fitted[o], bs.index = i)
                 }
@@ -335,16 +357,19 @@ inzplot.lm <- function(x,
         ) +
         scale_y_continuous("Cook's Distance",
             limits = YL
-         ) +
+        ) +
         ggtitle(
             ifelse(short.title, "Cook's Distance",
-                "**Cook's Distance** of ordered observations"),
-            subtitle = if (short.title) waiver ()
-                else {
-                    sprintf("Linear model: %s",
-                        utils::capture.output(x$call$formula)
-                    )
-                }
+                "**Cook's Distance** of ordered observations"
+            ),
+            subtitle = if (short.title) {
+                waiver()
+            } else {
+                sprintf(
+                    "Linear model: %s",
+                    utils::capture.output(x$call$formula)
+                )
+            }
         ) +
         theme_classic() +
         theme(
@@ -352,7 +377,6 @@ inzplot.lm <- function(x,
             plot.title = element_markdown(size = ifelse(short.title, 11, 12))
         ) +
         coord_cartesian(expand = FALSE)
-
 }
 
 .inzplot_lm_normqq <- function(x, show.bootstraps, label.id,
@@ -372,7 +396,8 @@ inzplot.lm <- function(x,
 
     stest <- shapiro.test(rs)
     sp <- stest$p.value
-    sres <- sprintf("Shapiro Wilk normality test: W = %s, P-value %s %s",
+    sres <- sprintf(
+        "Shapiro Wilk normality test: W = %s, P-value %s %s",
         round(stest$statistic, 4),
         ifelse(sp < 1e-4, "<", "="),
         max(round(stest$p.value, 3), 1e-4)
@@ -414,7 +439,8 @@ inzplot.lm <- function(x,
 
     p <- p +
         geom_point() +
-        geom_text_repel(aes_(label = ~lab), data = d[d$lab != "", ],
+        geom_text_repel(aes_(label = ~lab),
+            data = d[d$lab != "", ],
             direction = "x"
         ) +
         ggtitle(title, subtitle = subtitle) +
@@ -488,9 +514,17 @@ inzplot.lm <- function(x,
         )
 }
 
+.inzplot_lm_forest <- function(x, short.title, ..., env = env) {
+    if (!requireNamespace("broom.helpers", quietly = TRUE)) {
+        stop("Please install suggested package: 'broom.helpers'")
+    } # no cov
+    GGally::ggcoef_model(x)
+}
+
+
 dropInf <- function(x, h) {
     if (any(isInf <- h >= 1)) {
-        #warning("Not plotting observations with leverage one:\n  ",
+        # warning("Not plotting observations with leverage one:\n  ",
         #        paste(which(isInf), collapse = ", "), call. = FALSE)
         x[isInf] <- NaN
     }

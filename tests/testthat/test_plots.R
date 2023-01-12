@@ -60,3 +60,7 @@ test_that("GLM marginal plots", {
     expect_null(inzplot(fit_pois, "marginal"))
     expect_null(inzplot(fit_bin, "marginal"))
 })
+
+test_that("Forest plot", {
+    inzplot(fit, which = "forest")
+})
