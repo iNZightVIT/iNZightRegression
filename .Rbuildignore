@@ -8,5 +8,5 @@
 ^README\.Rmd$
 ^CRAN-RELEASE$
 ^.git$
-
+^docs$
 ^CRAN-SUBMISSION$
