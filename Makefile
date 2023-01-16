@@ -1,33 +1,35 @@
 R := R
-
-default: install
+RCMD := $(R) --slave
 
 document:
-	@$(R) -e "devtools::document()"
-
-check:
-	@$(R) -e "devtools::check()"
+	@$(RCMD) -e "devtools::document()"
 
 test:
-	@$(R) -e "devtools::test()"
+	@$(RCMD) -e "devtools::test()"
+
+check:
+	@$(RCMD) -e "devtools::check()"
 
 revcheck:
-	@$(R) -e "if (!requireNamespace('revdepcheck')) install.packages('revdepcheck')"
-	@$(R) -e "revdepcheck::revdep_check()"
-	@$(R) -f "revdep/check.R"
+	@$(RCMD) -e "if (!requireNamespace('revdepcheck')) install.packages('revdepcheck')"
+	@$(RCMD) -e "revdepcheck::revdep_check()"
+	@$(RCMD) -f "revdep/check.R"
 
 revcheck_reset:
-	@$(R) -e "revdepcheck::revdep_reset()"
+	@$(RCMD) -e "revdepcheck::revdep_reset()"
 
-crancheck:
+crancheck: document
 	@$(R) CMD build .
 	@$(R) CMD check *.tar.gz
 
 install:
 	$(R) CMD INSTALL ./
 
-README.md: README.Rmd | install
-	$(R) -e "rmarkdown::render('$^')"
+clean:
+	@rm -rf *.tar.gz *.Rcheck revdep
+
+README.md: README.Rmd
+	$(RCMD) -e "rmarkdown::render('$^')"
 	rm README.html
 
 BRANCH := $(shell git branch --show-current | sed 's/[a-z]*\///')
@@ -37,5 +39,5 @@ releasePRs:
 	@echo Creating PR to dev
 	@gh pr create -a "@me" -b "" -B dev -l "release" -p "Tom" -t "Release $(BRANCH) into dev"
 
-clean:
-	@rm -rf *.tar.gz *.Rcheck revdep
+site: README.md document install
+	@$(RCMD) -e "pkgdown::build_site()"

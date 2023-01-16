@@ -25,11 +25,11 @@ Obtain a quick model comparison matrix for a selection of models
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: default method
+\item \code{compare_models(default)}: default method
 
-\item \code{svyglm}: method for survey GLMs
+\item \code{compare_models(svyglm)}: method for survey GLMs
+
 }}
-
 \examples{
 m0 <- lm(Sepal.Length ~ 1, data = iris)
 m1 <- lm(Sepal.Length ~ Sepal.Width, data = iris)

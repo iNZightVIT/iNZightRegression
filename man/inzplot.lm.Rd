@@ -55,9 +55,9 @@ Diagnostic Plots for Regression Models
 }
 \section{Functions}{
 \itemize{
-\item \code{inzplot.glm}: Method for GLMs
-}}
+\item \code{inzplot(glm)}: Method for GLMs
 
+}}
 \section{Plot types}{
 
 There are several plot types available:
@@ -68,6 +68,7 @@ There are several plot types available:
 \item Cook's distance
 \item normal Q-Q
 \item histogram array
+\item forest plot
 }
 }
 
