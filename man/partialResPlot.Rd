@@ -36,9 +36,9 @@ This function draws partial residual plots for a continuous explanatory variable
 }
 \section{Functions}{
 \itemize{
-\item \code{allPartialResPlots}: Cycle through all partial residual plots
-}}
+\item \code{allPartialResPlots()}: Cycle through all partial residual plots
 
+}}
 \examples{
 m <- lm(Sepal.Length ~ Sepal.Width + Petal.Width, data = iris)
 partialResPlot(m, "Sepal.Width")

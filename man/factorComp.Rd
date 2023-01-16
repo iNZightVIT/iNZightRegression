@@ -25,11 +25,11 @@ a factor level comparison object with estimates, CIs, and (adjusted) p-values
 Computes confidence intervals for the pairwise differences between levels
 of a factor, based off of \code{stats::TukeyHSD}.
 }
-\section{Methods (by generic)}{
+\section{Functions}{
 \itemize{
-\item \code{print}: print method for object of class \code{inzfactorcomp}
-}}
+\item \code{print(inzfactorcomp)}: print method for object of class \code{inzfactorcomp}
 
+}}
 \examples{
 f <- lm(Sepal.Length ~ Sepal.Width + Species, data = iris)
 factorComp(f, "Species")
