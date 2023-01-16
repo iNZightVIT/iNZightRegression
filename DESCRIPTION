@@ -39,7 +39,7 @@ Suggests:
 Description: Provides a suite of functions to use with regression models, including summaries, residual plots, and factor comparisons. Used as part of the Model Fitting module of 'iNZight', a graphical user interface providing easy exploration and visualisation of data for students of statistics, available in both desktop and online versions.
 BugReports: https://github.com/iNZightVIT/iNZightRegression/issues
 Contact: inzight_support@stat.auckland.ac.nz
-URL: http://inzight.nz
+URL: https://inzight.nz
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.2.3
