@@ -2,7 +2,7 @@
 github_deps <- c(
     "iNZightVIT/iNZightTools@1.9",
     "iNZightVIT/iNZightPlots@2.13",
-    "iNZightVIT/iNZightMR@2.2.5" # dependency of iNZightPlots
+    "iNZightVIT/iNZightMR@2.2.7" # dependency of iNZightPlots
 )
 
 OS <- Sys.getenv("OS_TYPE")
