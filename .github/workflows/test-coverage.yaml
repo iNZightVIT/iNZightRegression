@@ -68,7 +68,7 @@ jobs:
 
       - name: Test coverage
         continue-on-error: true
-        uses: nick-invision/retry@v1
+        uses: nick-fields/retry@v3
         with:
           timeout_minutes: 10
           max_attempts: 5
