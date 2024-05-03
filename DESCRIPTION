@@ -44,3 +44,16 @@ License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Language: en-GB
+Config/Needs/dependencies:
+    tmelliott/surveyspec@develop,
+    iNZightVIT/iNZightTools@1.9.0,
+    iNZightVIT/iNZightPlots@2.13.0,
+    iNZightVIT/iNZightMR@2.2.7,
+    rcmdcheck,
+    curl
+Config/Needs/coverage:
+    tmelliott/surveyspec@develop,
+    iNZightVIT/iNZightTools@1.9.0,
+    iNZightVIT/iNZightPlots@2.13.0,
+    iNZightVIT/iNZightMR@2.2.7,
+    covr
