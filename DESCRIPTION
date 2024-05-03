@@ -46,7 +46,7 @@ RoxygenNote: 7.2.3
 Language: en-GB
 Config/Needs/dependencies:
     tmelliott/surveyspec@develop,
-    iNZightVIT/iNZightTools@1.9.0,
+    iNZightVIT/iNZightTools@1.9,
     iNZightVIT/iNZightPlots@2.13,
     iNZightVIT/iNZightMR@2.2.7,
     rcmdcheck,
