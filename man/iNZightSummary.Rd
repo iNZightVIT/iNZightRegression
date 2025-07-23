@@ -95,7 +95,7 @@ iNZightSummary(m, exclude = "Sepal.Width")
 The model fitting functions \code{\link{lm}}, \code{\link{glm}}, and
 \code{\link{summary}}.
 
-The \code{\link{survey}} package.
+The 'survey' package: https://cran.r-project.org/package=survey.
 
 Function \code{\link{coef}} will extract the matrix of coefficients
 with standard errors, t-statistics and p-values.

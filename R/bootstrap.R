@@ -18,11 +18,11 @@ generate_bootstraps <- function(x, env) {
 
 bootstrapModels <- function(fit, nBootstraps = 30, env = parent.frame()) {
     if (isSurvey(fit)) {
-        warning('Bootstrapping for survey glms is not yet ready.')
+        warning("Bootstrapping for survey glms is not yet ready.")
         return(NULL)
     }
 
-  # Variables for adding bootstrap lowess lines
+    # Variables for adding bootstrap lowess lines
     # nr = nrow(fit$model)
     # modifiedCall <- modifyModelCall(fit)
     # bootstrapID <- replicate(nBootstraps, sample(1:nr, replace = TRUE))
@@ -41,96 +41,105 @@ bootstrapModels <- function(fit, nBootstraps = 30, env = parent.frame()) {
     #         mod
     #     }))
 
-    bs.fits <- replicate(nBootstraps, {
-        conv <- FALSE
-        while (!conv) {
-            bsfit <- suppressWarnings({
-                ## this is a little tricky.
-                ## - need to subset the FULL data set (using fit$model excludes missing values!)
-                ## - fit$call$data is the name of the data object, which needs to be evaluated FIRST
-                ## - and THEN the fit update is evaluate in the parent environment (where fit$call$data exists)
-                if (is.null(fit$call$data)) {
-                    tmpdata <- fit$model
-                } else {
-                    tmpdata <- eval(fit$call$data, envir = env)
-                }
-                call <- update(fit,
-                    data = tmpdata,
-                    subset = sample(nrow(tmpdata), replace = TRUE),
-                    evaluate = FALSE)
-                eval(call)#, envir = env)
-            })
-            conv <- !isGlm(fit) || bsfit$conv
-        }
-        bsfit
-    }, simplify = FALSE)
+    bs.fits <- replicate(nBootstraps,
+        {
+            conv <- FALSE
+            while (!conv) {
+                bsfit <- suppressWarnings({
+                    ## this is a little tricky.
+                    ## - need to subset the FULL data set (using fit$model excludes missing values!)
+                    ## - fit$call$data is the name of the data object, which needs to be evaluated FIRST
+                    ## - and THEN the fit update is evaluate in the parent environment (where fit$call$data exists)
+                    if (is.null(fit$call$data)) {
+                        tmpdata <- fit$model
+                    } else {
+                        tmpdata <- eval(fit$call$data, envir = env)
+                    }
+                    call <- update(fit,
+                        data = tmpdata,
+                        subset = sample(nrow(tmpdata), replace = TRUE),
+                        evaluate = FALSE
+                    )
+                    eval(call) # , envir = env)
+                })
+                conv <- !isGlm(fit) || bsfit$conv
+            }
+            bsfit
+        },
+        simplify = FALSE
+    )
 
     invisible(bs.fits)
 }
 
-bootstrapData <- function(fit, id)
+bootstrapData <- function(fit, id) {
     UseMethod("bootstrapData")
+}
 
+#' @export
 bootstrapData.lm <- function(fit, id) {
     return(fit$model[id, ])
     ## Try just use the data set in the R session ...
     call <- fit$call
     callValues <- as.character(call)
     callNames <- names(call)
-    dataName <-callValues[callNames == 'data']
+    dataName <- callValues[callNames == "data"]
     bsData <- eval(parse(text = dataName))[id, ]
     bsData
 }
 
+#' @export
 bootstrapData.glm <- function(fit, id) {
     call <- fit$call
     callValues <- as.character(call)
     callNames <- names(call)
-    dataName <-callValues[callNames == 'data']
+    dataName <- callValues[callNames == "data"]
     bsData <- eval(parse(text = dataName))
 
-    if (grepl('/', colnames(fit$model)[1])) {
-      # In this case, resample the number of successes
+    if (grepl("/", colnames(fit$model)[1])) {
+        # In this case, resample the number of successes
         mod <- fit$model
-        response <- strsplit(names(mod), '/')[[1]]
+        response <- strsplit(names(mod), "/")[[1]]
         y <- bsData[, response[1]]
         n <- bsData[, response[2]]
         p <- ifelse(n == 0, 0, y / n)
 
         bsData[, response[1]] <- rbinom(nrow(bsData), n, p)
     } else {
-      # otherwise, simply resample the data
+        # otherwise, simply resample the data
         bsData <- bsData[id, ]
     }
 
     bsData
 }
 
+#' @export
 bootstrapData.svyglm <- function(fit, id) {
-  # To do: account for sample design when doing bootstrap resample.
+    # To do: account for sample design when doing bootstrap resample.
 
-  # Returns a bootstrapped survey design object
+    # Returns a bootstrapped survey design object
 
-  # First, get the survey design name, then the dataset name:
+    # First, get the survey design name, then the dataset name:
     call <- fit$call
     callValues <- as.character(call)
     callNames <- names(call)
-    designName <- callValues[callNames == 'design']
+    designName <- callValues[callNames == "design"]
 
     des <- eval(parse(text = designName))
     descall <- des$call
     descallValues <- as.character(descall)
     descallNames <- names(descall)
-    dataName <- descallValues[descallNames == 'data']
+    dataName <- descallValues[descallNames == "data"]
 
-  # Rebuild design call with new data:
+    # Rebuild design call with new data:
     bsData <- eval(parse(text = dataName))[id, ]
 
-    o <- !descallNames %in% c('', 'data')
-    other <- paste(descallNames[o], ' = ', descallValues[o], ', ',
-                   sep = '', collapse = '')
+    o <- !descallNames %in% c("", "data")
+    other <- paste(descallNames[o], " = ", descallValues[o], ", ",
+        sep = "", collapse = ""
+    )
 
-    newcall <- paste('svydesign(', other, 'data = bsData)', sep = '')
+    newcall <- paste("svydesign(", other, "data = bsData)", sep = "")
     bsDesign <- eval(parse(text = newcall))
 }
 
@@ -139,12 +148,14 @@ bootstrapData.svyglm <- function(fit, id) {
 modifyModelCall <- function(fit) {
     if (isSurvey(fit)) {
         modifiedCall <- update(fit, . ~ .,
-                               design = eval(parse(text = "bootstrapSample")),
-                               evaluate = FALSE)
+            design = eval(parse(text = "bootstrapSample")),
+            evaluate = FALSE
+        )
     } else {
         modifiedCall <- update(fit, . ~ .,
-                               data = eval(parse(text = "bootstrapSample")),
-                               evaluate = FALSE)
+            data = eval(parse(text = "bootstrapSample")),
+            evaluate = FALSE
+        )
     }
 
     modifiedCall
@@ -155,6 +166,6 @@ modelDataName <- function(fit) {
     call <- fit$call
     callValues <- as.character(call)
     callNames <- names(call)
-    dataName <-callValues[callNames == 'data']
+    dataName <- callValues[callNames == "data"]
     dataName
 }
