@@ -28,7 +28,10 @@ Imports:
     patchwork,
     stats,
     stats4,
-    utils
+    utils,
+    lmtest,
+    skedastic,
+    MASS
 Suggests:
     covr,
     broom.helpers,
