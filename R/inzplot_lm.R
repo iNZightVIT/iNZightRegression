@@ -214,7 +214,7 @@ inzplot.lm <- function(x,
     XL <- extendrange(range(d$x, na.rm = TRUE))
     YL <- extendrange(range(d$y, na.rm = TRUE), f = 0.08)
 
-    p <- ggplot(d, aes_(~x, ~y))
+    p <- ggplot(d, aes(.data$x, .data$y))
 
     yax2 <- NULL
     if (which == "leverage" && !is.null(attr(d, "r.hat"))) {
@@ -237,7 +237,7 @@ inzplot.lm <- function(x,
                     lty = 2, col = col.cook,
                     data = dx, na.rm = TRUE
                 ) +
-                geom_path(aes_(y = ~ -y),
+                geom_path(aes(y = -.data$y),
                     lty = 2, col = col.cook,
                     data = dx, na.rm = TRUE
                 ) +
@@ -272,7 +272,7 @@ inzplot.lm <- function(x,
             sec.axis =
                 if (!is.null(yax2) && length(yax2)) {
                     sec_axis(
-                        trans = ~.,
+                        transform = ~.,
                         name = NULL,
                         breaks = yax2,
                         labels = names(yax2)
@@ -291,7 +291,7 @@ inzplot.lm <- function(x,
 
     if (label.id > 0L && !is.null(d$lab)) {
         p <- p +
-            geom_text_repel(aes_(label = ~lab),
+            geom_text_repel(aes(label = .data$lab),
                 data = d[d$lab != "", ]
             )
     }
@@ -315,7 +315,7 @@ inzplot.lm <- function(x,
 
         p <- p +
             geom_path(
-                aes_(group = ~bs.index),
+                aes(group = .data$bs.index),
                 data = bs.data,
                 colour = col.bs
             )
@@ -346,9 +346,9 @@ inzplot.lm <- function(x,
     XL <- extendrange(c(0L, nrow(d)))
     YL <- c(0, max(cdx) * 1.08)
 
-    ggplot(d, aes_(~obs_n, ~cooks_distance)) +
-        geom_segment(aes_(xend = ~obs_n, y = 0, yend = ~cooks_distance)) +
-        geom_text(aes_(label = ~lab),
+    ggplot(d, aes(.data$obs_n, .data$cooks_distance)) +
+        geom_segment(aes(xend = .data$obs_n, y = 0, yend = .data$cooks_distance)) +
+        geom_text(aes(label = .data$lab),
             data = d[co, ],
             nudge_y = 0.02 * YL[2]
         ) +
@@ -403,7 +403,7 @@ inzplot.lm <- function(x,
         max(round(stest$p.value, 3), 1e-4)
     )
 
-    p <- ggplot(d, aes_(~x, ~y)) +
+    p <- ggplot(d, aes(.data$x, .data$y)) +
         geom_abline(slope = 1, intercept = 0)
 
     if (short.title) {
@@ -439,7 +439,7 @@ inzplot.lm <- function(x,
 
     p <- p +
         geom_point() +
-        geom_text_repel(aes_(label = ~lab),
+        geom_text_repel(aes(label = .data$lab),
             data = d[d$lab != "", ],
             direction = "x"
         ) +
@@ -486,17 +486,17 @@ inzplot.lm <- function(x,
         )
     }
 
-    ggplot(dd, aes_(~x, ~y)) +
+    ggplot(dd, aes(.data$x, .data$y)) +
         geom_col(
             width = diff(h$breaks),
             fill = "light blue",
             colour = "black"
         ) +
-        geom_path(aes_(y = ~y),
+        geom_path(aes(y = .data$y),
             data = d2,
             colour = curve.col,
             linetype = 2,
-            size = 1.2
+            linewidth = 1.2
         ) +
         coord_cartesian(expand = FALSE) +
         scale_x_continuous("Residuals",
