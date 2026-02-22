@@ -29,6 +29,9 @@ Imports:
     stats,
     stats4,
     utils
+    lmtest.
+    skedastic,
+    MASS,
 Suggests:
     covr,
     broom.helpers,
