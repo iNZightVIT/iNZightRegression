@@ -8,6 +8,7 @@
 #'   (e.g., \code{checks}).
 #'
 #' @return A list of results from the performed checks (invisible).
+#' @importFrom utils menu
 #' @export
 #'
 check_model <- function(model, ...) {
