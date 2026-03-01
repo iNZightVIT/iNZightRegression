@@ -28,7 +28,10 @@ Imports:
     patchwork,
     stats,
     stats4,
-    utils
+    utils,
+    lmtest,
+    skedastic,
+    MASS
 Suggests:
     covr,
     broom.helpers,
@@ -42,7 +45,7 @@ Contact: inzight_support@stat.auckland.ac.nz
 URL: https://inzight.nz
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Language: en-GB
 Config/Needs/dependencies:
     tmelliott/surveyspec@develop,
