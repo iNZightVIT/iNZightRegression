@@ -1,0 +1,89 @@
+---
+title: "guided_assumption_checking"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{guided_assumption_checking}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(iNZightRegression)
+```
+
+# Introduction
+
+Validating model assumptions is a critical yet challenging step in linear regression. The `check_model()` function in `iNZightRegression` provides a cohesive, interactive diagnostic suite that guides users through a strict hierarchical evaluation of four key assumptions:
+
+1. **Linear Independence (Multicollinearity)**
+2. **Linearity**
+3. **Constant Variance**
+4. **Normality of Residuals**
+
+**Model Scope:** Currently, this interactive suite is optimized for standard linear models (`lm`). An extensible dispatcher architecture is actively in place to route `lm` objects to this suite, while providing a structural placeholder for future Generalised Linear Model (`glm`) diagnostics.
+
+# Interactive Workflow
+
+When you execute `check_model(my_model)`, you are presented with a clear console interface. This suite integrates robust statistical tests with standard visual diagnostics to provide unified results, pausing after generating each diagnostic plot to allow for processing of visual information.
+
+## Diagnostic Checks
+
+The suite evaluates assumptions in a strict logical order:
+
+- **Linear Independence**: Evaluated using Variance Inflation Factors (VIF) and generalised VIF for categorical variables.
+- **Linearity**: Evaluated using the Ramsey RESET test combined with a Residuals vs. Fitted plot.
+- **Constant Variance**: Evaluated via Breusch-Pagan or White Test, paired with a Scale-Location plot or a Residuals vs. Fitted plot.
+- **Normality**: Evaluated via Shapiro-Wilk or Kolmogorov-Smirnov tests, paired with Q-Q plots or Histogram Arrays.
+
+Rather than overwhelming you with default outputs, the suite allows for dynamic customization during runtime. For example, when checking normality, the console will prompt you to choose your preferred statistical test and diagnostic plot:
+
+```{r, eval=FALSE}
+> check_normality(good_model)
+
+--- Step 1: Statistical Test ---
+Select a normality test: 
+
+1: Shapiro-Wilk Test
+2: Kolmogorov-Smirnov Test
+
+Selection: 1
+```
+
+
+## Actionable Feedback & Interactive Handling
+
+If a critical assumption fails (e.g., Linear Independence), an interactive prompt alerts you and asks if you wish to terminate the process or proceed with caution. This prevents misleading subsequent checks on fundamentally misspecified models.
+
+Rather than simply failing, the software computes suggestions for fixing underlying violations. For example, if non-constant variance is detected, `check_variance()` automatically runs a Box-Cox profile log-likelihood sequence in the background to suggest an optimal transformation (e.g., "Fix: Apply Log Transformation").
+
+These suggestions, along with the results of all selected tests, are aggregated in a unified report upon completion or termination:
+
+```{r, eval=FALSE}
+=================================================
+               FINAL SUMMARY
+=================================================
+linear_independence  : N/A
+linearity            : OK
+variance             : FAILED
+   -> Fix: Constant Variance Violated Suggested Fix: Apply Power Transformation (Y^-1.80)
+=================================================
+
+NOTE: Process terminated early due to assumption failure.
+```
+
+
+# Non-interactive Mode
+
+While the primary focus is the interactive `check_model()` wrapper, each individual worker function can be executed non-interactively by advanced users or within scripts:
+
+```{r, eval=FALSE}
+# Example of non-interactive check
+check_normality(my_model, test = "ks", show_plot = "both")
+```

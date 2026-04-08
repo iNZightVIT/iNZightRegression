@@ -9,3 +9,4 @@
 *.tar.gz
 revdep
 CRAN-SUBMISSION
+inst/doc
