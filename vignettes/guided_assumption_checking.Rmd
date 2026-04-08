@@ -85,5 +85,5 @@ While the primary focus is the interactive `check_model()` wrapper, each individ
 
 ```{r, eval=FALSE}
 # Example of non-interactive check
-check_normality(my_model, test = "ks", plot_type = "both")
+check_normality(my_model, test = "ks", show_plot = "both")
 ```
