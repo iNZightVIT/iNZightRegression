@@ -24,5 +24,5 @@ inzsummary method
 Summary method for linear models
 }
 \seealso{
-\link{iNZightSummary}
+iNZightSummary
 }
