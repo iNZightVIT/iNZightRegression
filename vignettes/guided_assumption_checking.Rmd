@@ -1,8 +1,9 @@
 ---
-title: "guided_assumption_checking"
+title: "Guided Assumption Checking"
+author: "Ken Deng, Matt Edwards, and Tom Elliott"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{guided_assumption_checking}
+  %\VignetteIndexEntry{Guided Assumption Checking}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -48,7 +49,7 @@ Rather than overwhelming you with default outputs, the suite allows for dynamic 
 > check_normality(good_model)
 
 --- Step 1: Statistical Test ---
-Select a normality test: 
+Select a normality test:
 
 1: Shapiro-Wilk Test
 2: Kolmogorov-Smirnov Test

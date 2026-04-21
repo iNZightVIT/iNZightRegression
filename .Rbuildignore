@@ -11,3 +11,5 @@
 ^docs$
 ^CRAN-SUBMISSION$
 ^WORDLIST$
+^_pkgdown\.yml$
+^pkgdown$

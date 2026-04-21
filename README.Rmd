@@ -53,8 +53,11 @@ library(iNZightRegression)
 iris.lm <- lm(Sepal.Width ~ Sepal.Length, data = iris)
 
 set.seed(246) # for bootstrap smoothers
+#| fig.alt: Residual plot of the iris model
 inzplot(iris.lm, which = "residual")
+#| fig.alt: Scale-location plot of the iris model
 inzplot(iris.lm, which = "scale")
+#| fig.alt: Leverage plot of the iris model
 inzplot(iris.lm, which = "leverage")
 
 inzsummary(iris.lm)

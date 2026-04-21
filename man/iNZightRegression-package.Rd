@@ -11,7 +11,7 @@ Provides a suite of functions to use with regression models, including summaries
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://inzight.nz}
+  \item \url{https://inzightvit.github.io/iNZightRegression/}
   \item Report bugs at \url{https://github.com/iNZightVIT/iNZightRegression/issues}
 }
 
@@ -21,6 +21,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Ken Deng
   \item Simon Potter
   \item David Banks
 }
