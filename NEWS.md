@@ -1,3 +1,9 @@
+# iNZightRegression 1.4.0
+
+## New Features
+
+The new major feature is the guided assumption checking suite, which allows users to interactively walk through the assumption checks for linear models.
+
 # iNZightRegression 1.3.5
 
 - fix link to package (replace with URL, introduced by new CRAN check)
@@ -203,7 +209,6 @@ to make the Model Fitting module better (over on `iNZightModules`).
   objects from the `survey` package.
 
 - Changes to the `iNZightSummary` output include:
-
   - Output now hides output of confounding
     variables through the `exclude` argument, and lists these at the
     top of the output.
@@ -262,7 +267,6 @@ to make the Model Fitting module better (over on `iNZightModules`).
 - New summary output, `iNZightSummary`. Includes several Changes
   compared to the R-base model summary output. These include the
   following:
-
   - Now showing the factor itself in the output, not just rows
     for coefficients for levels of the factor.
 
