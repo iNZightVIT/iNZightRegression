@@ -2,7 +2,11 @@
 
 ## New Features
 
-The new major feature is the guided assumption checking suite, which allows users to interactively walk through the assumption checks for linear models.
+The new major feature is the guided assumption checking suite, which allows users to interactively walk through the assumption checks for linear models. More detail is in the vignette _[Guided Assumption Checking](https://inzightvit.github.io/iNZightRegression/articles/guided_assumption_checking.html)_ (or run `vignette("guided_assumption_checking", package = "iNZightRegression")` locally).
+
+## Minor changes
+
+- forest plots from `inzplot(..., which = "forest")` are only supported on **R >= 4.3**; on older versions of R the function stops with an informative message
 
 # iNZightRegression 1.3.5
 
