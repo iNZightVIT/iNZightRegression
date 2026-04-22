@@ -6,7 +6,7 @@
 #' @return An object of class `summary.lm`, `summary.glm`, or
 #'         `summary.svyglm`.
 #'
-#' @seealso [iNZightSummary]
+#' @seealso iNZightSummary
 #' @md
 #' @export
 inzsummary.lm <- function(x, ..., env = parent.frame()) {

@@ -42,7 +42,8 @@ test_that("Linear regression model plots - summary grid", {
 test_that("GLM plots", {
     fit_bin <- glm(gender ~ age + height,
         data = cas,
-        family = "binomial")
+        family = "binomial"
+    )
     expect_is(inzplot(fit_bin), "patchwork")
 })
 
@@ -51,16 +52,22 @@ test_that("GLM marginal plots", {
 
     fit_pois <- glm(cellcost ~ age + height + gender,
         data = cas,
-        family = "poisson")
+        family = "poisson"
+    )
 
     fit_bin <- glm(gender ~ age + height,
         data = cas,
-        family = "binomial")
+        family = "binomial"
+    )
 
     expect_null(inzplot(fit_pois, "marginal"))
     expect_null(inzplot(fit_bin, "marginal"))
 })
 
 test_that("Forest plot", {
+    # skip on R < 4.3
+    if (getRversion() < "4.3.0") {
+        skip("Forest plot is only supported on R >= 4.3.0")
+    }
     inzplot(fit, which = "forest")
 })

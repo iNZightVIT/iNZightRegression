@@ -68,7 +68,7 @@ There are several plot types available:
 \item Cook's distance
 \item normal Q-Q
 \item histogram array
-\item forest plot
+\item forest plot (only supported on R >= 4.3)
 }
 }
 

@@ -1,51 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Poly.html</loc>
-  </url>
-  <url>
-    <loc>/reference/compare_models.html</loc>
-  </url>
-  <url>
-    <loc>/reference/factorComp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/histogramArray.html</loc>
-  </url>
-  <url>
-    <loc>/reference/iNZightQQplot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/iNZightRegression.html</loc>
-  </url>
-  <url>
-    <loc>/reference/iNZightSummary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/inzplot.lm.html</loc>
-  </url>
-  <url>
-    <loc>/reference/inzsummary.lm.html</loc>
-  </url>
-  <url>
-    <loc>/reference/partialResPlot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plotlm6.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://inzightvit.github.io/iNZightRegression/404.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/articles/guided_assumption_checking.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/articles/index.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/authors.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/index.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/news/index.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/Poly.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/check_linear_independence.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/check_linearity.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/check_model.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/check_model_glm.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/check_model_lm.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/check_normality.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/check_variance.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/compare_models.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/factorComp.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/histogramArray.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/iNZightQQplot.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/iNZightRegression-package.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/iNZightSummary.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/index.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/inzplot.lm.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/inzsummary.lm.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/partialResPlot.html</loc></url>
+<url><loc>https://inzightvit.github.io/iNZightRegression/reference/plotlm6.html</loc></url>
 </urlset>
+

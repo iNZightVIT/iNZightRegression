@@ -8,7 +8,7 @@
 #' * Cook's distance
 #' * normal Q-Q
 #' * histogram array
-#' * forest plot
+#' * forest plot (only supported on R >= 4.3)
 #'
 #' @param x a regression model
 #' @param which the type of plot to draw
@@ -515,9 +515,13 @@ inzplot.lm <- function(x,
 }
 
 .inzplot_lm_forest <- function(x, short.title, ..., env = env) {
+    # only supported on R >= 4.3
+    if (getRversion() < "4.3.0") {
+        stop("Forest plot is only supported on R >= 4.3.0")
+    }
     if (!requireNamespace("broom.helpers", quietly = TRUE)) {
         stop("Please install suggested package: 'broom.helpers'")
-    } # no cov
+    }
     GGally::ggcoef_model(x)
 }
 
